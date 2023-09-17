@@ -1,4 +1,9 @@
 import { Component } from 'react';
+
+import { Section } from './Section/section';
+import { FeedbackOptions } from './Feedback/feedback';
+import { Statistics } from './Statictic/statistic';
+
 import css from './App.module.css';
 
 class App extends Component {
@@ -7,6 +12,7 @@ class App extends Component {
     neutral: 0,
     bad: 0,
   };
+
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
@@ -23,16 +29,19 @@ class App extends Component {
       good: prevState.good + 1,
     }));
   };
+
   handleClickNeutral = () => {
     this.setState(prevState => ({
       neutral: prevState.neutral + 1,
     }));
   };
+
   handleClickBad = () => {
     this.setState(prevState => ({
       bad: prevState.bad + 1,
     }));
   };
+
   render() {
     const totalFeedback = this.countTotalFeedback();
     const positivePercentage = Math.ceil(
