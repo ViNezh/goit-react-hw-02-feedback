@@ -3,12 +3,17 @@ import { Component } from 'react';
 import { Section } from './Section/section';
 import { FeedbackOptions } from './Feedback/feedback';
 import { Statistics } from './Statictic/statistic';
+import { Notification } from './Notification -/Notification ';
 
 class App extends Component {
   state = {
     good: 0,
     neutral: 0,
     bad: 0,
+  };
+
+  handleClick = keyState => {
+    this.setState(prevState => ({ [keyState]: prevState[keyState] + 1 }));
   };
 
   countTotalFeedback = () => {
@@ -20,10 +25,6 @@ class App extends Component {
     const { good } = this.state;
     const total = this.countTotalFeedback();
     return total === 0 ? 0 : (good / total) * 100;
-  };
-
-  handleClick = keyState => {
-    this.setState(prevState => ({ [keyState]: prevState[keyState] + 1 }));
   };
 
   render() {
@@ -40,13 +41,17 @@ class App extends Component {
           />
         </Section>
         <Section title="Statistics">
-          <Statistics
-            good={this.state.good}
-            neutral={this.state.neutral}
-            bad={this.state.bad}
-            total={totalFeedback}
-            positivePercentage={positivePercentage}
-          />
+          {totalFeedback > 0 ? (
+            <Statistics
+              good={this.state.good}
+              neutral={this.state.neutral}
+              bad={this.state.bad}
+              total={totalFeedback}
+              positivePercentage={positivePercentage}
+            />
+          ) : (
+            <Notification message="There is no feedback" />
+          )}
         </Section>
       </>
     );
