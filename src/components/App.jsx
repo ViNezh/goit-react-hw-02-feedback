@@ -24,22 +24,8 @@ class App extends Component {
     return total === 0 ? 0 : (good / total) * 100;
   };
 
-  handleClickGood = () => {
-    this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-  };
-
-  handleClickNeutral = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-
-  handleClickBad = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
-    }));
+  handleClick = keyState => {
+    this.setState(prevState => ({ [keyState]: prevState[keyState] + 1 }));
   };
 
   render() {
@@ -50,19 +36,17 @@ class App extends Component {
     return (
       <div className={css.container}>
         <h2 className={css.title}>Please leave feedback</h2>
-        <div className={css.buttons}>
-          <button onClick={this.handleClickGood}>Good</button>
-          <button onClick={this.handleClickNeutral}>Neutral</button>
-          <button onClick={this.handleClickBad}>Bad</button>
-        </div>
-        <div className={css.statistic}>
-          <h2 className={css.titleStat}>Statistics</h2>
-          <p>Good: {this.state.good}</p>
-          <p>Neutral: {this.state.neutral}</p>
-          <p>Bad: {this.state.bad}</p>
-          <p>Total: {totalFeedback}</p>
-          <p>Positive feedback: {positivePercentage}%</p>
-        </div>
+        <FeedbackOptions
+          options={['good', 'neutral', 'bad']}
+          onLeaveFeedback={this.handleClick}
+        />
+        <Statistics
+          good={this.state.good}
+          neutral={this.state.neutral}
+          bad={this.state.bad}
+          total={totalFeedback}
+          positivePercentage={positivePercentage}
+        />
       </div>
     );
   }
