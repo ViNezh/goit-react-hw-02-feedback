@@ -4,8 +4,6 @@ import { Section } from './Section/section';
 import { FeedbackOptions } from './Feedback/feedback';
 import { Statistics } from './Statictic/statistic';
 
-import css from './App.module.css';
-
 class App extends Component {
   state = {
     good: 0,
@@ -34,20 +32,23 @@ class App extends Component {
       this.countPositiveFeedbackPercentage()
     );
     return (
-      <div className={css.container}>
-        <h2 className={css.title}>Please leave feedback</h2>
-        <FeedbackOptions
-          options={['good', 'neutral', 'bad']}
-          onLeaveFeedback={this.handleClick}
-        />
-        <Statistics
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          total={totalFeedback}
-          positivePercentage={positivePercentage}
-        />
-      </div>
+      <>
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={['good', 'neutral', 'bad']}
+            onLeaveFeedback={this.handleClick}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            total={totalFeedback}
+            positivePercentage={positivePercentage}
+          />
+        </Section>
+      </>
     );
   }
 }
