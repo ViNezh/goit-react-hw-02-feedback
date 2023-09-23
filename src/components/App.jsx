@@ -11,19 +11,20 @@ class App extends Component {
     neutral: 0,
     bad: 0,
   };
-
+  // Функція додавання при натисканні кнопки
   handleClick = keyState => {
     this.setState(prevState => ({ [keyState]: prevState[keyState] + 1 }));
   };
-
+  // Функція підрахунку загальної кількості
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
     return good + neutral + bad;
   };
-
+  // Функція розрахунку відсотку позитивних відповідей
   countPositiveFeedbackPercentage = () => {
     const { good } = this.state;
     const total = this.countTotalFeedback();
+    // Повернення результату 0 за умови відсутності відгуків
     return total === 0 ? 0 : (good / total) * 100;
   };
 
